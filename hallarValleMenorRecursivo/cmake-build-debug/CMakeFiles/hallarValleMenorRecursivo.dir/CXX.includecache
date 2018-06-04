@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/ger/Documents/C++/hallarValleMenorRecursivo/main.cpp
+iostream
+-
+vector
+-
+tuple
+-
+cmath
+-
+

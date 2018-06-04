@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/ger/Documents/C++/tp2/auxiliares.h
+definiciones.h
+C:/Users/ger/Documents/C++/tp2/definiciones.h
+
+C:/Users/ger/Documents/C++/tp2/definiciones.h
+iostream
+-
+vector
+-
+tuple
+-
+cmath
+-
+
+C:/Users/ger/Documents/C++/tp2/ejercicios.h
+definiciones.h
+C:/Users/ger/Documents/C++/tp2/definiciones.h
+
+C:/Users/ger/Documents/C++/tp2/main.cpp
+iostream
+-
+vector
+-
+math.h
+-
+tuple
+-
+auxiliares.h
+C:/Users/ger/Documents/C++/tp2/auxiliares.h
+ejercicios.h
+C:/Users/ger/Documents/C++/tp2/ejercicios.h
+tuple
+-
+
