@@ -60,7 +60,7 @@ class Conjunto
             // Puntero a la raíz del subárbol izquierdo.
             Nodo* izq;
             // Puntero a la raíz del subárbol derecho.
-            Nodo* der; 
+            Nodo* der;
         };
 
         // Puntero a la raíz de nuestro árbol.

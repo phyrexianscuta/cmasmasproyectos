@@ -6,7 +6,7 @@ Conjunto<T>::Conjunto() {
 
 template<class T>
 Conjunto<T>::~Conjunto() {
-    destruirNodos();
+ //   destruirNodos();
 }
 
 template<class T>
@@ -42,6 +42,7 @@ template<class T>
 const T &Conjunto<T>::siguiente(const T &clave) {
 
 }
+/*
 template <class T>
 const Nodo* Conjunto<T>::siguienteNodo(const T& clave){
     Nodo* proximoProvisorio = _raiz;
@@ -50,6 +51,7 @@ const Nodo* Conjunto<T>::siguienteNodo(const T& clave){
         Conjunto(_raiz->der).siguienteNodo(proximoProvisorio->valor);
     }
 }
+ */
 
 template<class T>
 const T &Conjunto<T>::minimo() const {
@@ -94,9 +96,12 @@ void Conjunto<T>::insertarSinPertenencia(const T &clave) {
             ladoDer.insertar(clave);
             _raiz->der = ladoDer._raiz;
 
-            Conjunto x2 = Conjunto(_raiz->der);
-            x2.insertar(9);
-            x2.cardinal();
+
+            // parte para testear x2 : x2 es  una referencia a la parte derecha del conjunto
+            //Conjunto x2 = Conjunto(_raiz->der);
+            //x2.insertar(9);
+            //x2.cardinal();
+            //fin
         } else {
             Conjunto ladoIzq = Conjunto(_raiz->izq);
             ladoIzq.insertar(clave);
@@ -109,13 +114,7 @@ void Conjunto<T>::insertarSinPertenencia(const T &clave) {
 template<class T>
 void Conjunto<T>::destruirNodos() {
     Nodo* actual = _raiz;
-    while(actual != nullptr){
-        Nodo* izq = actual->izq;
-        Nodo* der = actual->der;
-        delete _raiz;
-        Conjunto(izq).destruirNodos();
-        Conjunto(der).destruirNodos();
-    }
+    delete _raiz;
 }
 
 template<class T>
