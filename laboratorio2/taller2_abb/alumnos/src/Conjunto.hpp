@@ -6,7 +6,6 @@ Conjunto<T>::Conjunto() {
 
 template<class T>
 Conjunto<T>::~Conjunto() {
- //   destruirNodos();
 }
 
 template<class T>
@@ -19,7 +18,7 @@ bool Conjunto<T>::pertenece(const T &clave) const {
         } else {
             bool a = clave < _raiz->valor && Conjunto(_raiz->izq).pertenece(clave);
             bool b = clave > _raiz->valor && Conjunto(_raiz->der).pertenece(clave);
-            return (a||b);
+            return (a || b);
         }
     }
 }
@@ -34,24 +33,65 @@ void Conjunto<T>::insertar(const T &clave) {
 }
 
 template<class T>
-void Conjunto<T>::remover(const T &) {
-    assert(false);
+void Conjunto<T>::remover(const T &clave) {
+    if (_raiz != nullptr) {
+        Nodo *izq = _raiz->izq;
+        Nodo *der = _raiz->der;
+
+        if (clave == _raiz->valor) {
+            if (izq == nullptr && der == nullptr) {
+                Nodo *padre = darPadre(_raiz->valor);
+                if(padre!= nullptr){
+                    if(padre->der == _raiz){
+                        padre->der = nullptr;
+                    } else{
+                        padre->izq = nullptr;
+                    }
+                }
+
+                _raiz = nullptr;
+
+            } else if (izq == nullptr) {
+                Nodo *padre = darPadre(_raiz->valor);
+                if(padre != nullptr){
+                    if(padre->der == _raiz){
+                        padre->der = der;
+                    } else{
+                        padre->izq = der;
+                    }
+                }
+
+                _raiz = nullptr;
+
+            } else if (der == nullptr) {
+                //el problema es que busca el valor en un subarbol ly no en el arbol entero
+                Nodo *padre = darPadre(_raiz->valor);
+                if(padre != nullptr){
+                    if(padre->der == _raiz){
+                        padre->der = der;
+                    } else{
+                        padre->izq = der;
+                    }
+                }
+
+                _raiz = nullptr;
+
+            } else {
+
+            }
+        } else if (_raiz->valor < clave) {
+            Conjunto(der).remover(clave);
+        } else {
+            Conjunto(izq).remover(clave);
+
+        }
+    }
 }
 
 template<class T>
 const T &Conjunto<T>::siguiente(const T &clave) {
 
 }
-/*
-template <class T>
-const Nodo* Conjunto<T>::siguienteNodo(const T& clave){
-    Nodo* proximoProvisorio = _raiz;
-
-    if(proximoProvisorio->valor <= clave){
-        Conjunto(_raiz->der).siguienteNodo(proximoProvisorio->valor);
-    }
-}
- */
 
 template<class T>
 const T &Conjunto<T>::minimo() const {
@@ -88,7 +128,7 @@ Conjunto<T>::Conjunto(Conjunto::Nodo *abb) {
 template<class T>
 void Conjunto<T>::insertarSinPertenencia(const T &clave) {
     if (_raiz == nullptr) {
-        Nodo* elemAgregado = new Nodo(clave);
+        Nodo *elemAgregado = new Nodo(clave);
         _raiz = elemAgregado;
     } else {
         if (clave > _raiz->valor) {
@@ -110,12 +150,46 @@ void Conjunto<T>::insertarSinPertenencia(const T &clave) {
     }
 }
 
+template<class T>
+typename Conjunto<T>::Nodo * Conjunto<T>::darPadre(const T &clave) {
+    Nodo *padre;
+    if (_raiz->valor == clave) {
+        padre = nullptr;
+    } else {
+        Nodo *der = _raiz->der;
+        Nodo *izq = _raiz->izq;
+        if ((der != nullptr && der->valor == clave) || (izq != nullptr && izq->valor == clave)) {
+            padre = _raiz;
+        } else {
+            if (clave > _raiz->valor) {
+                padre = Conjunto(der).darPadre(clave);
+            } else {
+                padre = Conjunto(izq).darPadre(clave);
+            }
+        }
+    }
+    return padre;
+}
 
 template<class T>
-void Conjunto<T>::destruirNodos() {
-    Nodo* actual = _raiz;
-    delete _raiz;
+typename Conjunto<T>::Nodo *Conjunto<T>::darNodo(const T &clave) {
+    Nodo *nodo;
+
+    if (_raiz->valor == clave) {
+        nodo = _raiz;
+    } else {
+        Nodo *der = _raiz->der;
+        Nodo *izq = _raiz->izq;
+        if (clave > _raiz->valor) {
+            nodo = Conjunto(der).darNodo(clave);
+        } else {
+            nodo = Conjunto(izq).darNodo(clave);
+        }
+
+    }
+    return nodo;
 }
+
 
 template<class T>
 Conjunto<T>::Nodo::Nodo(const T &v) {

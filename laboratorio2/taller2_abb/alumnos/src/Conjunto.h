@@ -73,7 +73,9 @@ class Conjunto
 
     void destruirNodos();
 
-    const Nodo* siguienteNodo(const T& valor);
+public:
+    Nodo* darPadre(const T &clave);
+    Nodo* darNodo(const T& clave);
 
 };
 

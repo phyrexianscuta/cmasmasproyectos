@@ -50,6 +50,49 @@ TEST(conjunto_test, test_pertenece) {
 
 }
 
+TEST(conjunto_test, test_dar_padre) {
+    Conjunto<int> c;
+    c.insertar(6);
+    c.insertar(7);
+    c.insertar(8);
+    c.insertar(3);
+    c.insertar(2);
+    c.insertar(4);
+    c.insertar(5);
+    EXPECT_EQ(c.darPadre(8), c.darNodo(7));
+    EXPECT_EQ(c.darPadre(5), c.darNodo(4));
+    EXPECT_EQ(c.darPadre(2), c.darNodo(3));
+    EXPECT_EQ(c.darPadre(3), c.darNodo(6));
+
+
+}
+
+TEST(conjunto_test, test_dar_padre2) {
+    Conjunto<int> c;
+    c.insertar(5);
+    c.insertar(10);
+    c.insertar(15);
+    c.insertar(12);
+    c.insertar(11);
+
+    EXPECT_EQ(c.darPadre(5), nullptr);
+    EXPECT_EQ(c.darPadre(11), c.darNodo(12));
+    EXPECT_EQ(c.darPadre(12), c.darNodo(15));
+
+}
+
+TEST(conjunto_test, test_dar_padre3) {
+    Conjunto<int> c;
+    c.insertar(6);
+    c.insertar(10);
+    c.insertar(15);
+    c.insertar(0);
+    c.insertar(-1);
+    c.insertar(1);
+    c.insertar(2);
+    EXPECT_EQ(c.darPadre(0), c.darNodo(6));
+}
+
 TEST(conjunto_test, test_insertar_remover_un_valor) {
     Conjunto<int> c;
     c.insertar(5);
@@ -57,6 +100,61 @@ TEST(conjunto_test, test_insertar_remover_un_valor) {
     EXPECT_EQ(c.cardinal(), 0);
     c.insertar(5);
     EXPECT_EQ(c.cardinal(), 1);
+}
+
+TEST(conjunto_test, test_insertar_remover_un_valor2) {
+    Conjunto<int> c;
+    c.insertar(3);
+    c.insertar(5);
+    c.insertar(4);
+
+    c.remover(4);
+    EXPECT_EQ(c.cardinal(), 2);
+    c.insertar(4);
+    EXPECT_EQ(c.cardinal(), 3);
+}
+
+TEST(conjunto_test, test_insertar_remover_un_valor3) {
+    Conjunto<int> c;
+    c.insertar(3);
+    c.insertar(4);
+    c.insertar(2);
+
+    c.remover(2);
+    EXPECT_EQ(c.cardinal(), 2);
+    c.insertar(2);
+    EXPECT_EQ(c.cardinal(), 3);
+}
+
+TEST(conjunto_test, test_remover_caso_un_hijo) {
+    Conjunto<int> c;
+    c.insertar(5);
+    c.insertar(6);
+    c.insertar(7);
+    c.remover(6);
+    EXPECT_EQ(c.cardinal(), 2);
+}
+
+TEST(conjunto_test, test_remover_caso_un_hijo2) {
+    Conjunto<int> c;
+    c.insertar(2);
+    c.insertar(6);
+    c.insertar(4);
+    c.remover(6);
+    EXPECT_EQ(c.cardinal(), 2);
+}
+
+TEST(conjunto_test, test_remover_caso_un_hijo3) {
+    Conjunto<int> c;
+    c.insertar(6);
+    c.insertar(7);
+    c.insertar(8);
+    c.insertar(3);
+    c.insertar(2);
+    c.insertar(4);
+    c.insertar(5);
+    c.remover(4);
+    EXPECT_EQ(c.cardinal(), 6);
 }
 
 TEST(conjunto_test, test_minimo) {
@@ -77,15 +175,6 @@ TEST(conjunto_test, test_maximo) {
     c.insertar(6);
     c.insertar(8);
     EXPECT_EQ(c.maximo(), 8);
-}
-
-TEST(conjunto_test, test_remover_caso_un_hijo) {
-    Conjunto<int> c;
-    c.insertar(5);
-    c.insertar(6);
-    c.insertar(7);
-    c.remover(6);
-    EXPECT_EQ(c.cardinal(), 2);
 }
 
 TEST(conjunto_test, test_remover_caso_dos_hijos_simple) {
